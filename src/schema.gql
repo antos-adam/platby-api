@@ -1,0 +1,94 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input AddPaymentInput {
+  """Payment Month"""
+  month: Float!
+
+  """Payment Username"""
+  username: String!
+
+  """Payment Year"""
+  year: Float!
+}
+
+type Mutation {
+  addPayment(addPaymentInput: AddPaymentInput!): User!
+  registerAdmin(registerAdminInput: RegisterAdminInput!): User!
+  registerUser(registerUserInput: RegisterUserInput!): User!
+  removeUser(_id: String!): User!
+}
+
+type Payment {
+  """Payment Month"""
+  month: Float
+
+  """Payment Year"""
+  year: Float
+}
+
+type Query {
+  user: User!
+  userName(username: String!): User!
+  users: [User!]!
+}
+
+input RegisterAdminInput {
+  """User Account number"""
+  accountNumber: String
+
+  """User Bank code"""
+  bankCode: String
+
+  """User Family Id"""
+  familyId: String
+
+  """User Full name"""
+  name: String
+
+  """User Password"""
+  password: String
+
+  """User Username"""
+  username: String
+}
+
+input RegisterUserInput {
+  """User Full name"""
+  name: String
+
+  """User Password"""
+  password: String
+
+  """User Username"""
+  username: String
+}
+
+type User {
+  _id: String!
+
+  """User Account number"""
+  accountNumber: String
+
+  """User Bank code"""
+  bankCode: String
+
+  """User Family Id"""
+  familyId: String
+
+  """Is user admin?"""
+  isAdmin: Boolean
+
+  """User Full name"""
+  name: String
+
+  """User Password"""
+  password: String
+
+  """User Family Id"""
+  payments: [Payment!]
+
+  """User Username"""
+  username: String
+}
