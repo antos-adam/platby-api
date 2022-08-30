@@ -15,7 +15,6 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   async registerAdmin(@CurrentUser() user: User, @Args('registerAdminInput') registerAdminInput: RegisterAdminInput) {
-    console.log(await this.userService.isAdmin(user.username));
     if(await this.userService.isAdmin(user.username) === true) {
       return this.userService.registerAdmin(registerAdminInput);
     }
@@ -25,7 +24,6 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   async registerUser(@CurrentUser() user: User, @Args('registerUserInput') registerUserInput: RegisterUserInput) {
-    console.log(await this.userService.isAdmin(user.username));
     if(await this.userService.isAdmin(user.username) === true) {
       return this.userService.registerUser(registerUserInput, user.username);
     }
@@ -44,7 +42,6 @@ export class UserResolver {
   @Mutation(() => User)
   @UseGuards(GqlAuthGuard)
   async addPayment(@CurrentUser() user: User, @Args('addPaymentInput') addPaymentInput: AddPaymentInput) {
-    console.log(await this.userService.isAdmin(user.username));
     if(await this.userService.isAdmin(user.username) === true) {
       return this.userService.addPayment(addPaymentInput);
     }
