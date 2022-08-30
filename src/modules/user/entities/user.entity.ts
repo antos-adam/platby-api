@@ -39,6 +39,10 @@ export class User {
   familyId: string;
 
   @Prop()
+  @Field(() => Boolean, { description: 'User Paid this month', nullable: true })
+  paid: boolean;
+
+  @Prop()
   @Field(() => [Payment], { description: 'User Family Id', nullable: true })
   payments: [Payment];
 }

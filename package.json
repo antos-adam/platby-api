@@ -1,11 +1,11 @@
 {
-  "name": "calculators-api",
+  "name": "platby-api",
   "graphdoc": {
     "endpoint": "http://localhost:443/graphql",
     "output": "./doc/schema"
   },
   "version": "1.0.0",
-  "description": "GraphQL API pro kalkulacky",
+  "description": "GraphQL API pro platby",
   "author": "",
   "private": true,
   "scripts": {

@@ -54,6 +54,12 @@ export class UserResolver {
     return this.userService.findOne(user.username);
   }
 
+  @Mutation(() => User, { name: 'changePassword' })
+  @UseGuards(GqlAuthGuard)
+  changePassword(@CurrentUser() user: User, @Args('password', { type: () => String }) password: string) {
+    return this.userService.changePassword(user.username, password);
+  }
+
   @Query(() => User, { name: 'userName' })
   @UseGuards(GqlAuthGuard)
   findOne(@Args('username', {type: () => String}) username: String) {

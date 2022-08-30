@@ -44,6 +44,8 @@ export class UserService {
       const hash = await bcrypt.hash(registerUserInput.password, 10);
       user.password = hash;
       user.familyId = adminUser.familyId;
+      user.accountNumber = adminUser.accountNumber;
+      user.bankCode = adminUser.bankCode;
       return user.save();
     }
     catch (error) {
@@ -72,6 +74,13 @@ export class UserService {
     if (!user) {
       return undefined;
     }
+    var date = new Date(Date.now());
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    if (user.payments.find(p => p.year === year && p.month === month)) {
+      user.paid = true;
+    }
+
     return user;
     }
     catch (error) {
@@ -93,7 +102,24 @@ export class UserService {
     }
   }
 
-  // async update(id: string, updateUserInput: UpdateUserInput) {
+   async changePassword(username: string, password: string) {
+     try{
+       const user = await this.userModel.findOne({ username: username }).exec();
+     if (!user) {
+       return "User not found"
+     }
+
+       const hash = await bcrypt.hash(password, 10);
+       user.password = hash;
+
+     return user.save();
+     }
+     catch (error) {
+       return new Error(error.message)
+     }
+   }
+
+    // async update(id: string, updateUserInput: UpdateUserInput) {
   //   try{
   //     const user = await this.userModel.findOne({ _id: id }).exec();
   //   if (!user) {
@@ -134,6 +160,11 @@ export class UserService {
     if (!user) {
       return undefined;
     }
+
+    if (user.payments.find(p => p.year === addPaymentInput.year && p.month === addPaymentInput.month)) {
+      return undefined;
+    }
+
     user.payments.push({
       month: addPaymentInput.month,
       year: addPaymentInput.year
