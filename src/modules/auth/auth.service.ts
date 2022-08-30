@@ -27,6 +27,7 @@ export class AuthService {
     const payload = user;
     return {
       access_token: this.jwtService.sign(payload),
+      isAdmin: user._doc.isAdmin
     };
   }
 }
