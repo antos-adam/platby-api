@@ -62,8 +62,11 @@ export class UserResolver {
 
   @Query(() => User, { name: 'userName' })
   @UseGuards(GqlAuthGuard)
-  findOne(@Args('username', {type: () => String}) username: String) {
+  async findOne(@CurrentUser() user: User, @Args('username', {type: () => String}) username: String) {
+    if(await this.userService.isAdmin(user.username) === true) {
     return this.userService.findOne(username);
+  }
+  else {throw new ForbiddenException();}
   }
   
   @Mutation(() => User, { name: 'removeUser' })
