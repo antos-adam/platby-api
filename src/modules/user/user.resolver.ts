@@ -21,7 +21,7 @@ export class UserResolver {
     else {throw new ForbiddenException();}
   }
 
-  @Mutation(() => User)
+  @Mutation(() => [User])
   @UseGuards(GqlAuthGuard)
   async registerUser(@CurrentUser() user: User, @Args('registerUserInput') registerUserInput: RegisterUserInput) {
     if(await this.userService.isAdmin(user.username) === true) {
@@ -40,7 +40,7 @@ export class UserResolver {
     else {throw new ForbiddenException();}
   }
 
-  @Mutation(() => User)
+  @Mutation(() => [User])
   @UseGuards(GqlAuthGuard)
   async addPayment(@CurrentUser() user: User, @Args('addPaymentInput') addPaymentInput: AddPaymentInput) {
     if(await this.userService.isAdmin(user.username) === true) {
