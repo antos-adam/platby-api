@@ -25,7 +25,8 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   async registerUser(@CurrentUser() user: User, @Args('registerUserInput') registerUserInput: RegisterUserInput) {
     if(await this.userService.isAdmin(user.username) === true) {
-      return this.userService.registerUser(registerUserInput, user.username);
+      await this.userService.registerUser(registerUserInput, user.username);
+      return this.userService.findAll(user.username);
     }
     else {throw new ForbiddenException();}
   }
@@ -43,7 +44,8 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   async addPayment(@CurrentUser() user: User, @Args('addPaymentInput') addPaymentInput: AddPaymentInput) {
     if(await this.userService.isAdmin(user.username) === true) {
-      return this.userService.addPayment(addPaymentInput);
+      await this.userService.addPayment(addPaymentInput);
+      return this.userService.findAll(user.username);
     }
     else {throw new ForbiddenException();}
   }

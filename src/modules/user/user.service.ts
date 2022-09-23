@@ -56,8 +56,9 @@ export class UserService {
   async findAll(adminUsername: string) {
     try{
       const adminUser = await this.userModel.findOne({ username: adminUsername }).exec();
-      const users = await this.userModel.find({familyId: adminUser.familyId});
+      const users = await this.userModel.find({familyId: adminUser.familyId}).exec(); // && {username: !adminUsername}
 
+      users.splice(users.findIndex(user => user.username === adminUsername), 1);
       if (!users) {
         return "Users not found"
       }
