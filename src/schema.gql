@@ -14,10 +14,10 @@ input AddPaymentInput {
 }
 
 type Mutation {
-  addPayment(addPaymentInput: AddPaymentInput!): User!
+  addPayment(addPaymentInput: AddPaymentInput!): [User!]!
   changePassword(password: String!): User!
   registerAdmin(registerAdminInput: RegisterAdminInput!): User!
-  registerUser(registerUserInput: RegisterUserInput!): User!
+  registerUser(registerUserInput: RegisterUserInput!): [User!]!
   removeUser(_id: String!): User!
 }
 
